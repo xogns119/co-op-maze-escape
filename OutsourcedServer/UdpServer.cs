@@ -115,6 +115,9 @@ namespace BattleArena
             ClientSession? session = GameServer.Instance.FindSession(playerId);
             if (session == null) return;
 
+            if (from is not IPEndPoint fromIp || !fromIp.Address.Equals(session.RemoteAddress)) return;
+            if (session.UdpEndPoint != null && !session.UdpEndPoint.Equals(from)) return;
+
             // 첫 UDP 패킷이면 주소를 기억해둡니다.
             // 앞으로 이 주소로 STATE를 보내줄 겁니다.
             if (session.UdpEndPoint == null)

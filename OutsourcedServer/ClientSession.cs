@@ -29,12 +29,15 @@ namespace BattleArena
         private readonly Socket _socket;
         private bool _isConnected = true;
 
+        public IPAddress? RemoteAddress { get; }
+
         public bool IsLoggedIn { get; private set; }
 
         public ClientSession(Socket socket, int playerId)
         {
             _socket  = socket;
             PlayerId = playerId;
+            RemoteAddress = (socket.RemoteEndPoint as IPEndPoint)?.Address;
         }
 
         // ═══════════════════════════════════════
