@@ -29,6 +29,8 @@ namespace BattleArena
         private readonly Socket _socket;
         private bool _isConnected = true;
 
+        public bool IsLoggedIn { get; private set; }
+
         public ClientSession(Socket socket, int playerId)
         {
             _socket  = socket;
@@ -114,6 +116,8 @@ namespace BattleArena
                 PlayerId = PlayerId,
                 Message  = $"{Nickname}님, 배틀아레나에 오신 것을 환영합니다!"
             });
+
+            IsLoggedIn = true;
 
             GameServer.Instance.Broadcast(new NoticePacket
             {
